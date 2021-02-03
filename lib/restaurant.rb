@@ -1,10 +1,11 @@
 class Restaurant
-  attr_reader :opening_time, :name, :dishes
+  attr_reader :opening_time, :name, :dishes, :menu_dish_names
 
   def initialize(opening_time, name)
     @opening_time = opening_time
     @name = name
     @dishes = []
+    @menu_dish_names = []
   end
 
   def closing_time(duration_hours)
@@ -19,7 +20,27 @@ class Restaurant
   end
 
   def open_for_lunch?
-    true if opening_time.split(":").first.to_i < 12 &&
-            closing_time.split(":").first.to_i > 12
+    if opening_time.split(":").first.to_i < 12
+      true
+    else
+      false
+    end
+  end
+
+  def menu_dish_names
+    @dishes.each do |dish|
+      @menu_dish_names << dish.upcase
+    end
+  end
+
+  def announce_closing_time(duration_hours)
+    opening_hour = opening_time.split(":").first.to_i
+    closing_time = (opening_hour + duration_hours).to_s + ':00'
+    if (opening_hour + duration_hours) < 12
+      ampm = "AM"
+    else
+      ampm = "PM"
+    end
+    "#{@name} will be closing at #{closing_time}#{ampm}"
   end
 end
