@@ -17,4 +17,9 @@ class Restaurant
   def add_dish(dish)
     @dishes << dish
   end
+
+  def open_for_lunch?
+    true if opening_time.split(":").first.to_i < 12 &&
+            closing_time.split(":").first.to_i > 12
+  end
 end
