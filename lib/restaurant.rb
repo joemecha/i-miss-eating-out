@@ -39,6 +39,7 @@ class Restaurant
     if (opening_hour + duration_hours) < 12
       ampm = "AM"
     else
+      closing_time = (closing_time.split(":").first.to_i - 12).to_s + ':00'
       ampm = "PM"
     end
     "#{@name} will be closing at #{closing_time}#{ampm}"
